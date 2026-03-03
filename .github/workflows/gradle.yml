@@ -3,7 +3,7 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "main" ]
-  pull_request:
+  pull_request: 
     branches: [ "main" ]
   workflow_dispatch:
 
@@ -28,9 +28,9 @@ jobs:
     - name: Build Eaglercraft Client
       run: |
         chmod +x gradlew
-        ./gradlew clean build client teavmCompile --no-daemon || ./gradlew build --no-daemon
-        echo "--- SEARCHING FOR WEB FILES ---"
-        find . -name "*.html"
+        ./gradlew clean client teavmCompile build --no-daemon || ./gradlew build --no-daemon
+        echo "--- LOCATING PLAYABLE FILES ---"
+        find . -name "index.html"
         find . -name "classes.js"
 
     - name: Upload Artifact
@@ -42,7 +42,6 @@ jobs:
           **/*.js
           **/*.epk
           **/*.epw
-          build/javascript/**/*
-          build/teavm/**/*
-          javascript/**/*
-          javascript_dist/**/*
+          build/teavm/**
+          build/javascript/**
+          javascript_dist/**
