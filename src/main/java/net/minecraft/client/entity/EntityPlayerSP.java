@@ -1,5 +1,6 @@
 package net.minecraft.client.entity;
 
+import net.minecraft.client.entity.Triggerbot;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.minecraft.block.state.IBlockState;
@@ -231,7 +232,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Called to update the entity's position/logic.
      */
     public void onUpdate()
-    {Triggerbot.onTick(this.mc);
+    {
+        Triggerbot.onTick(this.mc);
         if (this.world.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
         {
             super.onUpdate();
