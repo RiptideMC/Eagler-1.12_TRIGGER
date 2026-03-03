@@ -23,19 +23,20 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    - name: Build Eaglercraft Client
+    - name: Build Eagler Web Client
       run: |
         chmod +x gradlew
-        ./gradlew clean build --no-daemon
-        echo "--- SEARCHING FOR ALL CREATED FILES ---"
-        find . -maxdepth 4 -not -path '*/.*'
+        ./gradlew teavmCompile --no-daemon
+        echo "--- SEARCHING FOR INDEX.HTML ---"
+        find . -name "index.html"
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Eagler-Web-Client
         path: |
-          build/distributions/**
-          javascript/**
           build/teavm/**
-          *.html
+          build/javascript/**
+          javascript/**
+          **/index.html
+          **/classes.js
