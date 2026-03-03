@@ -25,9 +25,9 @@ jobs:
     - name: Build with Gradle
       run: |
         chmod +x gradlew
-        ./gradlew build
+        ./gradlew teamvmCompile
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Eagler-Windows
-        path: build/distributions/*
+        name: Eagler-Web-Client
+        path: build/teavm/**
