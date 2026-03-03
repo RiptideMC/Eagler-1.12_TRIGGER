@@ -26,17 +26,19 @@ jobs:
     - name: Build Eagler Web Client
       run: |
         chmod +x gradlew
-        ./gradlew teavmCompile --no-daemon
-        echo "--- SEARCHING FOR INDEX.HTML ---"
+        ./gradlew client --no-daemon
+        echo "--- SEARCHING FOR WEB FILES ---"
         find . -name "index.html"
+        find . -name "classes.js"
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Eagler-Web-Client
         path: |
-          build/teavm/**
-          build/javascript/**
-          javascript/**
+          build/javascript/**/*
+          build/teavm/**/*
+          javascript/**/*
           **/index.html
           **/classes.js
+          **/*.epk
