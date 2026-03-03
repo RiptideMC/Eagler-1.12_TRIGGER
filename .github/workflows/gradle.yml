@@ -3,7 +3,7 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "main" ]
-  pull_request: 
+  pull_request:
     branches: [ "main" ]
   workflow_dispatch:
 
@@ -29,19 +29,21 @@ jobs:
       run: |
         chmod +x gradlew
         ./gradlew clean client teavmCompile build --no-daemon || ./gradlew build --no-daemon
-        echo "--- LOCATING PLAYABLE FILES ---"
+        echo "--- SEARCHING FOR COMPILED WEB FILES ---"
         find . -name "index.html"
         find . -name "classes.js"
+        find . -name "*.epk"
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Eagler-Web-Client
         path: |
-          **/*.html
-          **/*.js
+          build/javascript/**/*
+          build/teavm/**/*
+          javascript_dist/**/*
+          build/distributions/*.html
+          build/distributions/*.js
+          **/index.html
+          **/classes.js
           **/*.epk
-          **/*.epw
-          build/teavm/**
-          build/javascript/**
-          javascript_dist/**
