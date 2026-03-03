@@ -3,8 +3,6 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -28,22 +26,16 @@ jobs:
     - name: Build Eaglercraft Client
       run: |
         chmod +x gradlew
-        ./gradlew clean client teavmCompile build --no-daemon || ./gradlew build --no-daemon
-        echo "--- SEARCHING FOR COMPILED WEB FILES ---"
-        find . -name "index.html"
-        find . -name "classes.js"
-        find . -name "*.epk"
+        ./gradlew clean build --no-daemon
+        echo "--- SEARCHING FOR ALL CREATED FILES ---"
+        find . -maxdepth 4 -not -path '*/.*'
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Eagler-Web-Client
         path: |
-          build/javascript/**/*
-          build/teavm/**/*
-          javascript_dist/**/*
-          build/distributions/*.html
-          build/distributions/*.js
-          **/index.html
-          **/classes.js
-          **/*.epk
+          build/distributions/**
+          javascript/**
+          build/teavm/**
+          *.html
