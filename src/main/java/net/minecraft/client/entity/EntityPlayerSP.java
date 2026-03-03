@@ -231,7 +231,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      * Called to update the entity's position/logic.
      */
     public void onUpdate()
-    {
+    {Triggerbot.onTick(this.mc);
         if (this.world.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
         {
             super.onUpdate();
